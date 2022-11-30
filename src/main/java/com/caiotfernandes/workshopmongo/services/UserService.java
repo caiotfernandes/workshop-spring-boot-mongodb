@@ -21,11 +21,8 @@ public class UserService {
 
     public User findBId(String id) {
         Optional<User> optUser = repository.findById(id);
-        if(!optUser.isPresent()) {
-            throw new ObjectNotFoundException("Objeto não encontrado");
-        }
-
-        return optUser.get();
+        return optUser.orElseThrow(() ->
+                new ObjectNotFoundException("Objeto não encontrado"));
     }
 
 }
