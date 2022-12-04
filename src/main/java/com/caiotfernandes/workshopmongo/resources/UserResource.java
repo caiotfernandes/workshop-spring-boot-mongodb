@@ -24,7 +24,7 @@ public class UserResource {
     public ResponseEntity<List<UserDTO>> findAll() {
         List<User> list = service.findAll();
         List<UserDTO> listDto = list.stream()
-                .map(x -> new UserDTO(x))
+                .map(x -> UserDTO.fromUser(x))
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(listDto);
     }
@@ -32,7 +32,7 @@ public class UserResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<UserDTO> findById(@PathVariable String id) {
         User user = service.findBId(id);
-        return ResponseEntity.ok().body(new UserDTO(user));
+        return ResponseEntity.ok().body(UserDTO.fromUser(user));
     }
 
     @RequestMapping(method = RequestMethod.POST)
